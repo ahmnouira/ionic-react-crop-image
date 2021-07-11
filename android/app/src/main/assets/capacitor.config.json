@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ionic-react-crop-image",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

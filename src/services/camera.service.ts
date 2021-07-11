@@ -1,15 +1,24 @@
-import { Camera, CameraOptions, CameraOriginal } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
-const options: CameraOptions = {
-    allowEdit: true,  // alow simple editing of the image before selection
-    saveToPhotoAlbum: true,
-    destinationType: Camera.DestinationType.DATA_URL,
-    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-    encodingType: Camera.EncodingType.JPEG,
-    mediaType: Camera.MediaType.PICTURE,
-  }
+export enum PictureSourceType  {
+        /** Choose image from picture library (same as PHOTOLIBRARY for Android) */
+        PHOTOLIBRARY  = 0,
+        /** Take picture from camera */
+        CAMERA = 1,
+        /** Choose image from picture library (same as SAVEDPHOTOALBUM for Android) */
+        SAVEDPHOTOALBUM = 2
+}
 
-export async function getPicture  () {
+export async function getPicture(source: PictureSourceType): Promise<string> {
+
+    const options: CameraOptions = {
+        allowEdit: true,                    //alow simple editing of the image before selection
+        saveToPhotoAlbum: true,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: source,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+      }
 
     try {
         const imageData  = await  Camera.getPicture(options)
@@ -18,6 +27,7 @@ export async function getPicture  () {
         let base64Image = 'data:image/jpeg;base64,' + imageData;
         return base64Image
     } catch (error) {
-        console.error(error)
+        throw error
     }
 }
+

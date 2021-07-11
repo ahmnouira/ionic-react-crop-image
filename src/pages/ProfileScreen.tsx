@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonRow, IonCol, IonThumbnail, IonText, IonIcon, IonItem, IonNote } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonRow, IonCol, IonThumbnail, IonText, IonIcon, IonItem, IonNote, IonImg } from '@ionic/react';
 import React, { useState } from 'react';
 import { getPicture, PictureSourceType } from '../services/camera.service';
 import { cropPicture } from '../services/crop.services';
@@ -13,7 +13,6 @@ export const ProfileScreen: React.FC = () => {
     try {
     const newPciture = await   getPicture(PictureSourceType.PHOTOLIBRARY) 
     const croptedPciture  = await cropPicture(newPciture)
-
     setPicture(croptedPciture)
     } catch (error) {
       console.error(error)
@@ -28,18 +27,21 @@ export const ProfileScreen: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 3</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-
-
+        
+    
     <IonCol className="content-col">
 
       <IonThumbnail className="user-image" onClick={handleUploadPciture}>
-        <img  src={picture} alt="default-img" />        
+
+        <IonImg src={picture} />
+           
       </IonThumbnail>
+
+      <IonText color="primary">
+        <a href={picture}>
+          {picture}
+      </a>
+      </IonText>
 
       <IonText color="primary">
         <h2 className="user-name">{"Ahemd Nouira"}</h2>

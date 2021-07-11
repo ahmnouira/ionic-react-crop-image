@@ -10,5 +10,10 @@
     <param name="android-package" value="com.jeduan.crop.CropPlugin"/>
   </feature>
 
+  <feature name="File">
+    <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   
 </widget>

@@ -2,18 +2,22 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonRow, 
 import React, { useState } from 'react';
 import { getPicture, PictureSourceType } from '../services/camera.service';
 import { cropPicture } from '../services/crop.services';
+import {File} from '@ionic-native/file'
 import './ProfileScreen.css';
 
 export const ProfileScreen: React.FC = () => {
 
   const [picture, setPicture] = React.useState<string>('')
 
-
   const handleUploadPciture =  async() => {
     try {
     const newPciture = await   getPicture(PictureSourceType.PHOTOLIBRARY) 
     const croptedPciture  = await cropPicture(newPciture)
-    setPicture(croptedPciture)
+    let filename = croptedPciture.substring(croptedPciture.lastIndexOf('/')+1);
+    let path =  croptedPciture.substring(0,croptedPciture.lastIndexOf('/')+1);
+     //then use the method reasDataURL  btw. var_picture is ur image variable
+    const file =  await   File.readAsDataURL(path, filename)
+    setPicture(file)
     } catch (error) {
       console.error(error)
     }
@@ -34,20 +38,14 @@ export const ProfileScreen: React.FC = () => {
       <IonThumbnail className="user-image" onClick={handleUploadPciture}>
 
         <IonImg src={picture} />
-           
       </IonThumbnail>
 
-      <IonText color="primary">
-        <a href={picture}>
-          {picture}
-      </a>
-      </IonText>
-
+  
       <IonText color="primary">
         <h2 className="user-name">{"Ahemd Nouira"}</h2>
       </IonText>
 
-      <hr />
+    
 
       <IonList mode="ios" lines="none">
 

@@ -1,0 +1,7 @@
+{
+  "name": "ionic-react-crop-image",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
